@@ -1,0 +1,128 @@
+.profile-page {
+  min-height: 100vh;
+  background: var(--bg-primary);
+  padding-top: 80px;
+  padding-bottom: 3rem;
+  color: var(--text-primary);
+}
+
+/* Reusing .page-header style if needed */
+.page-header {
+  text-align: center;
+  padding: 2rem;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 2rem;
+}
+.page-header h1 {
+  font-size: 2rem;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.profile-container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: grid;
+  gap: 2rem;
+}
+
+.profile-section {
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px var(--shadow);
+  border: 1px solid var(--border-color);
+}
+
+.profile-section h2 {
+  font-size: 1.4rem;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.profile-error, .profile-success {
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  text-align: center;
+}
+.profile-error {
+  background-color: rgba(255, 0, 0, 0.1);
+  color: #d8000c;
+  border: 1px solid rgba(255, 0, 0, 0.2);
+}
+.profile-success {
+  background-color: rgba(76, 175, 80, 0.1);
+  color: #4CAF50;
+  border: 1px solid rgba(76, 175, 80, 0.2);
+}
+
+
+.profile-form-group {
+  margin-bottom: 1.5rem;
+}
+
+.profile-form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.profile-form-group input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: 'Changa', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+.profile-form-group input:focus {
+  outline: none;
+  border-color: #f18c7e;
+  box-shadow: 0 0 0 3px rgba(241, 140, 126, 0.1);
+}
+
+.profile-submit-btn {
+  display: inline-block; /* Changed from block */
+  padding: 0.7rem 2rem;
+  background: linear-gradient(135deg, #f18c7e, #ff6b6b);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: bold;
+  font-family: 'Changa', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(241, 140, 126, 0.3);
+  margin-top: 0.5rem;
+}
+
+.profile-submit-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(241, 140, 126, 0.5);
+}
+
+.profile-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Reusing loading indicator style */
+.loading-indicator {
+  text-align: center;
+  padding: 3rem;
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+}

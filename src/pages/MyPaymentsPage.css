@@ -1,0 +1,137 @@
+.my-payments-page {
+  min-height: 100vh;
+  background: var(--bg-primary);
+  padding-top: 80px;
+  padding-bottom: 3rem;
+}
+
+.page-header {
+  text-align: center;
+  padding: 2rem;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 2rem;
+}
+
+.page-header h1 {
+  font-size: 2rem;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.page-header p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+
+.payments-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.loading-indicator, .error-message {
+  text-align: center;
+  padding: 3rem;
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+}
+
+.error-message {
+    color: #d8000c;
+    background-color: rgba(255, 0, 0, 0.05);
+    border: 1px solid rgba(255, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.no-payments-message {
+  text-align: center;
+  padding: 3rem;
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+}
+
+.no-payments-message a {
+    color: #f18c7e;
+    font-weight: bold;
+}
+
+.payments-list {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.payment-card {
+  background: var(--card-bg);
+  border-radius: 10px;
+  box-shadow: 0 4px 15px var(--shadow);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.payment-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px var(--shadow);
+}
+
+
+.payment-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.payment-card-header h3 {
+  font-size: 1.2rem;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.payment-status {
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: white;
+}
+
+.status-approved {
+  background-color: #4CAF50; /* Green */
+}
+
+.status-pending {
+  background-color: #FFC107; /* Amber */
+  color: #333;
+}
+
+.status-rejected {
+  background-color: #F44336; /* Red */
+}
+
+.payment-card-body {
+  padding: 1.5rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.payment-card-body p {
+  margin-bottom: 0.5rem;
+}
+
+.payment-card-body p strong {
+  color: var(--text-primary);
+  margin-left: 5px;
+}
+
+.payment-card-body a {
+    color: #f18c7e;
+    text-decoration: none;
+    font-weight: bold;
+}
+.payment-card-body a:hover {
+    text-decoration: underline;
+}
