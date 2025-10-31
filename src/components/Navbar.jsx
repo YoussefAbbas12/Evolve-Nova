@@ -1,15 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import './Navbar.css';
 
-function Navbar({ showBackButton = false, CourcePage = false, isDark = false }) {
+function Navbar({ showBackButton = false, CourcePage = false, showThemeToggle = true }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const { isAuthenticated, user, logout, isLoading } = useAuth();
 
-  const [isDarkMode, setIsDarkMode] = useState(isDark);
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      return savedTheme === 'dark';
+    }
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  });
+
+  useEffect(() => {
+    const theme = isDarkMode ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }, [isDarkMode]);
+
+  const toggleTheme = () => {
+    setIsDarkMode(prevMode => !prevMode);
+  };
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -49,8 +65,6 @@ function Navbar({ showBackButton = false, CourcePage = false, isDark = false }) 
         </>
       );
     }
-
-    
 
     const evolveLinks = (
       <>
@@ -94,7 +108,6 @@ function Navbar({ showBackButton = false, CourcePage = false, isDark = false }) 
       linksToShow = evolveLinks;
     }
 
-
     return (
       <>
         {linksToShow}
@@ -118,7 +131,6 @@ function Navbar({ showBackButton = false, CourcePage = false, isDark = false }) 
     );
   };
 
-
   return (
     <header className="navbar">
       <Link to="/" onClick={closeMenu}>
@@ -133,6 +145,11 @@ function Navbar({ showBackButton = false, CourcePage = false, isDark = false }) 
 
       <nav className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
         {renderNavLinks()}
+        {showThemeToggle && (
+            <button onClick={toggleTheme} className="theme-toggle" title={isDarkMode ? 'الوضع الفاتح' : 'الوضع المظلم'}>
+              {isDarkMode ? '☀️' : '🌙'}
+            </button>
+        )}
       </nav>
     </header>
   );

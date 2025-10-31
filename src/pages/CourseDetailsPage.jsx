@@ -6,6 +6,9 @@ import Navbar from '../components/Navbar';
 import './CourseDetailsPage.css';
 import './PaymentForm.css';
 
+const VODAFONE_NUMBER = "01012345678";
+const INSTAPAY_ACCOUNT = "user@instapay";
+
 const LoadingSpinner = () => (
     <div style={{ textAlign: 'center', padding: '3rem', fontSize: '1.5rem', color: 'var(--text-secondary)' }}>
         جارِ التحميل...
@@ -18,6 +21,151 @@ const ErrorDisplay = ({ message }) => (
     </div>
 );
 
+const StarRatingInput = ({ rating, setRating }) => {
+    const [hoverRating, setHoverRating] = useState(0);
+    return (
+        <div className="stars-input">
+            <span>تقييمك: </span>
+            {[1, 2, 3, 4, 5].map((star) => (
+                <i
+                    key={star}
+                    className={(hoverRating || rating) >= star ? 'fas fa-star' : 'far fa-star'}
+                    onClick={() => setRating(star)}
+                    onMouseEnter={() => setHoverRating(star)}
+                    onMouseLeave={() => setHoverRating(0)}
+                ></i>
+            ))}
+        </div>
+    );
+};
+
+const PaymentFormModal = ({ course, onClose, onSubmit, isLoading }) => {
+    const [paymentMethod, setPaymentMethod] = useState('vodafone_cash');
+    const [screenshotFile, setScreenshotFile] = useState(null);
+    const [paymentError, setPaymentError] = useState('');
+    const [copySuccess, setCopySuccess] = useState('');
+    const fileInputRef = useRef(null);
+
+    const handleFileChange = (event) => {
+        setScreenshotFile(event.target.files[0]);
+    };
+
+    const handleFormSubmit = (event) => {
+        event.preventDefault();
+        if (!screenshotFile) {
+            setPaymentError('يرجى إرفاق صورة إيصال الدفع.');
+            return;
+        }
+        setPaymentError('');
+        onSubmit(paymentMethod, screenshotFile, fileInputRef);
+    };
+
+    const handleCopyToClipboard = (textToCopy) => {
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            setCopySuccess(`تم نسخ: ${textToCopy}`);
+            setTimeout(() => setCopySuccess(''), 2000);
+        }, (err) => {
+            console.error('Failed to copy: ', err);
+            setCopySuccess('فشل النسخ');
+            setTimeout(() => setCopySuccess(''), 2000);
+        });
+    };
+
+    return (
+      <div className="payment-form-overlay">
+          <div className="payment-form-modal">
+              <button className="close-modal-btn" onClick={onClose} disabled={isLoading}>×</button>
+              
+              <div className="payment-header">
+                <h2><i className="fas fa-wallet"></i> إتمام الدفع</h2>
+                <p>للالتحاق بكورس: <strong>{course.title}</strong></p>
+                <div className="payment-price-tag">
+                    المبلغ المطلوب: <span>{course.price} ج.م</span>
+                </div>
+              </div>
+              
+              {paymentError && <p className="payment-error">{paymentError}</p>}
+              {copySuccess && <p className="payment-copy-success">{copySuccess}</p>}
+
+              <form onSubmit={handleFormSubmit}>
+                  <div className="payment-step">
+                      <span className="step-number">1</span>
+                      <p>اختر طريقة الدفع وقم بتحويل المبلغ</p>
+                  </div>
+
+                  <div className="payment-methods-grid">
+                      <label className={`payment-method-card ${paymentMethod === 'vodafone_cash' ? 'selected' : ''}`}>
+                          <input
+                              type="radio"
+                              name="paymentMethod"
+                              value="vodafone_cash"
+                              checked={paymentMethod === 'vodafone_cash'}
+                              onChange={(e) => setPaymentMethod(e.target.value)}
+                              disabled={isLoading}
+                          />
+                          <div className="payment-method-info vodafone">
+                              <span className="payment-method-title">فودافون كاش</span>
+                              <div className="payment-copy-box">
+                                  <span>{VODAFONE_NUMBER}</span>
+                                  <button type="button" onClick={() => handleCopyToClipboard(VODAFONE_NUMBER)} disabled={isLoading}>
+                                      <i className="fas fa-copy"></i>
+                                  </button>
+                              </div>
+                          </div>
+                      </label>
+                      <label className={`payment-method-card ${paymentMethod === 'instapay' ? 'selected' : ''}`}>
+                          <input
+                              type="radio"
+                              name="paymentMethod"
+                              value="instapay"
+                              checked={paymentMethod === 'instapay'}
+                              onChange={(e) => setPaymentMethod(e.target.value)}
+                              disabled={isLoading}
+                          />
+                           <div className="payment-method-info instapay">
+                              <span className="payment-method-title">انستا باي</span>
+                              <div className="payment-copy-box">
+                                  <span>{INSTAPAY_ACCOUNT}</span>
+                                  <button type="button" onClick={() => handleCopyToClipboard(INSTAPAY_ACCOUNT)} disabled={isLoading}>
+                                      <i className="fas fa-copy"></i>
+                                  </button>
+                              </div>
+                          </div>
+                      </label>
+                  </div>
+                  
+                  <div className="payment-step">
+                       <span className="step-number">2</span>
+                       <p>قم بإرفاق صورة إيصال الدفع</p>
+                  </div>
+
+                  <div className="payment-form-group">
+                      <label htmlFor="screenshot" className="upload-label">
+                          <i className="fas fa-cloud-upload-alt"></i>
+                          <span>{screenshotFile ? screenshotFile.name : 'اضغط لاختيار صورة الإيصال'}</span>
+                      </label>
+                      <input
+                          type="file"
+                          id="screenshot"
+                          name="screenshot"
+                          accept="image/png, image/jpeg, image/jpg"
+                          onChange={handleFileChange}
+                          ref={fileInputRef}
+                          required
+                          disabled={isLoading}
+                      />
+                  </div>
+
+                  <button type="submit" className="payment-submit-btn" disabled={isLoading}>
+                      {isLoading ? 'جارِ الإرسال...' : 'تأكيد وإرسال للمراجعة'}
+                  </button>
+              </form>
+          </div>
+      </div>
+    );
+};
+
+
 function CourseDetailsPage() {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -26,21 +174,23 @@ function CourseDetailsPage() {
 
     const [course, setCourse] = useState(null);
     const [lessons, setLessons] = useState([]);
+    const [reviews, setReviews] = useState([]);
     const [isLoadingCourse, setIsLoadingCourse] = useState(true);
     const [isLoadingLessons, setIsLoadingLessons] = useState(false);
+    const [isLoadingReviews, setIsLoadingReviews] = useState(false);
     const [error, setError] = useState('');
     const [activeTab, setActiveTab] = useState('description');
 
     const [showPaymentForm, setShowPaymentForm] = useState(false);
-    const [paymentMethod, setPaymentMethod] = useState('vodafone_cash');
-    const [screenshotFile, setScreenshotFile] = useState(null);
-    const [paymentError, setPaymentError] = useState('');
     const [paymentSuccess, setPaymentSuccess] = useState('');
     const [isSubmittingPayment, setIsSubmittingPayment] = useState(false);
-    const fileInputRef = useRef(null);
 
     const [enrollmentStatus, setEnrollmentStatus] = useState(null);
     const [isLoadingStatus, setIsLoadingStatus] = useState(false);
+
+    const [newReviewText, setNewReviewText] = useState('');
+    const [newReviewRating, setNewReviewRating] = useState(0);
+    const [isSubmittingReview, setIsSubmittingReview] = useState(false);
 
     const fetchCourseData = async () => {
         setIsLoadingCourse(true);
@@ -48,7 +198,6 @@ function CourseDetailsPage() {
         setCourse(null);
         setLessons([]);
         setShowPaymentForm(false);
-        setPaymentError('');
         setPaymentSuccess('');
         setActiveTab('description');
         setEnrollmentStatus(null);
@@ -69,7 +218,12 @@ function CourseDetailsPage() {
     }, [id]);
     
     const fetchUserCourseStatus = async () => {
-        if (!isAuthenticated || !course) return;
+        if (!isAuthenticated || !course || user?.role === 'admin') {
+            if (user?.role === 'admin') {
+                setEnrollmentStatus('admin');
+            }
+            return;
+        }
 
         setIsLoadingStatus(true);
         try {
@@ -98,34 +252,57 @@ function CourseDetailsPage() {
             fetchUserCourseStatus();
         } else if (!isAuthenticated && !authLoading) {
             setEnrollmentStatus('not_authenticated');
+        } else if (user?.role === 'admin') {
+            setEnrollmentStatus('admin');
         }
-    }, [isAuthenticated, course, authLoading]);
+    }, [isAuthenticated, course, authLoading, user]);
 
 
-    useEffect(() => {
-        const fetchLessonsData = async () => {
-             if (activeTab === 'content' && course && !isLoadingLessons && lessons.length === 0) {
-                setIsLoadingLessons(true);
-                try {
-                    const response = await getCourseLessons(id);
-                    setLessons(response.data.lessons || []);
-                } catch (err) {
-                    console.error("Failed to fetch lessons:", err);
-                    setLessons([]);
-                } finally {
-                    setIsLoadingLessons(false);
-                }
-            }
-        };
+    const fetchLessonsData = async () => {
+         if (lessons.length > 0 || isLoadingLessons) return;
+         setIsLoadingLessons(true);
+         try {
+             const response = await getCourseLessons(id);
+             setLessons(response.data.lessons || []);
+         } catch (err) {
+             console.error("Failed to fetch lessons:", err);
+             setLessons([]);
+         } finally {
+             setIsLoadingLessons(false);
+         }
+    };
+
+    const fetchReviewsData = async () => {
+        if (reviews.length > 0 || isLoadingReviews) return;
+        setIsLoadingReviews(true);
+        try {
+            console.log("Fetching reviews... (API call to be implemented)");
+            setReviews([]); 
+        } catch (err) {
+            console.error("Failed to fetch reviews:", err);
+            setReviews([]);
+        } finally {
+            setIsLoadingReviews(false);
+        }
+    };
+
+    const handleTabClick = (tab) => {
+      setActiveTab(tab);
+      if (tab === 'content') {
         fetchLessonsData();
-    }, [activeTab, id, course, isLoadingLessons, lessons.length, isAuthenticated]);
+      }
+      if (tab === 'reviews') {
+        fetchReviewsData();
+      }
+    };
 
-
-    const handleEnroll = () => {
+    const handleEnrollClick = () => {
         if (!isAuthenticated) {
             navigate('/login', { state: { from: location.pathname } });
             return;
         }
+        
+        if (user?.role === 'admin') return;
 
         switch (enrollmentStatus) {
             case 'approved':
@@ -138,28 +315,14 @@ function CourseDetailsPage() {
             case 'not_enrolled':
             default:
                 setShowPaymentForm(true);
-                setPaymentError('');
                 setPaymentSuccess('');
                 break;
         }
     };
 
-    const handleFileChange = (event) => {
-        setScreenshotFile(event.target.files[0]);
-    };
+    const handlePaymentSubmit = async (paymentMethod, screenshotFile, fileInputRef) => {
+        if (!course) return;
 
-    const handlePaymentSubmit = async (event) => {
-        event.preventDefault();
-        if (!screenshotFile) {
-            setPaymentError('يرجى إرفاق صورة إيصال الدفع.');
-            return;
-        }
-        if (!course) {
-             setPaymentError('حدث خطأ، لا يمكن تحديد الكورس.');
-             return;
-        }
-
-        setPaymentError('');
         setPaymentSuccess('');
         setIsSubmittingPayment(true);
 
@@ -173,19 +336,42 @@ function CourseDetailsPage() {
             const response = await submitPayment(formData);
             setPaymentSuccess(response.data.message || 'تم إرسال طلب الدفع بنجاح وهو قيد المراجعة.');
             setShowPaymentForm(false);
-            setScreenshotFile(null);
             if(fileInputRef.current) fileInputRef.current.value = "";
-            setEnrollmentStatus('pending'); // تحديث الحالة فوراً
-            // fetchUserCourseStatus(); // أو إعادة جلب الحالة
+            setEnrollmentStatus('pending');
         } catch (err) {
             console.error("Payment submission failed:", err);
-            setPaymentError(err.response?.data?.error || 'فشل إرسال طلب الدفع.');
+            alert(err.response?.data?.error || 'فشل إرسال طلب الدفع.');
         } finally {
             setIsSubmittingPayment(false);
         }
     };
+    
+    const handleReviewSubmit = async (e) => {
+        e.preventDefault();
+        if (newReviewRating === 0) {
+            alert("يرجى اختيار تقييم (عدد النجوم).");
+            return;
+        }
+        if (!newReviewText) {
+            alert("يرجى كتابة نص التقييم.");
+            return;
+        }
+        setIsSubmittingReview(true);
+        console.log("Submitting review:", { rating: newReviewRating, comment: newReviewText });
+        
+        try {
+            alert("تم إرسال التقييم بنجاح (محاكاة).");
+            setNewReviewText('');
+            setNewReviewRating(0);
+        } catch (err) {
+            console.error("Review submission failed:", err);
+        } finally {
+            setIsSubmittingReview(false);
+        }
+    };
 
     const getEnrollButtonText = () => {
+        if (user?.role === 'admin') return 'الأدمن لا يلتحق بالكورسات';
         if (!isAuthenticated) return 'سجل الدخول للالتحاق';
         if (isLoadingStatus) return 'جارِ التحقق...';
 
@@ -205,17 +391,16 @@ function CourseDetailsPage() {
     if (isLoadingCourse || authLoading) {
         return (
             <div className="course-details-page">
-                <Navbar showBackButton={true} CourcePage={true} isDark={true} />
+                <Navbar showBackButton={true} CourcePage={true} />
                 <LoadingSpinner />
             </div>
         );
     }
     
-    // ... (ErrorDisplay and !course checks remain the same)
     if (error && !course) {
        return (
           <div className="course-details-page">
-              <Navbar showBackButton={true} CourcePage={true} isDark={true} />
+              <Navbar showBackButton={true} CourcePage={true} />
               <ErrorDisplay message={error} />
                  <div style={{textAlign: 'center', marginBottom: '2rem'}}>
                    <Link to="/courses" className="back-btn">العودة للكورسات</Link>
@@ -226,7 +411,7 @@ function CourseDetailsPage() {
     if (!course) {
         return (
             <div className="course-details-page">
-                <Navbar showBackButton={true} CourcePage={true} isDark={true} />
+                <Navbar showBackButton={true} CourcePage={true} />
                 <div className="not-found">
                     <h2>الكورس غير موجود</h2>
                     <Link to="/courses" className="back-btn">العودة للكورسات</Link>
@@ -235,16 +420,14 @@ function CourseDetailsPage() {
         );
     }
 
-
     return (
         <div className="course-details-page">
-            <Navbar showBackButton={true} CourcePage={true} isDark={true} />
-
+            <Navbar showBackButton={true} CourcePage={true} />
+            
             <div className="course-header">
                {paymentSuccess && <p className="payment-success-banner">{paymentSuccess}</p>}
                 <div className="course-header-content">
                     <div className="course-header-text">
-                        {/* ... (course details remain the same) ... */}
                         <div className="breadcrumb">
                             <Link to="/courses">الكورسات</Link> / <span>{course.category}</span>
                         </div>
@@ -280,7 +463,7 @@ function CourseDetailsPage() {
                                     </>
                                 )}
                             </div>
-                            <button className="enroll-btn" onClick={handleEnroll} disabled={isLoadingStatus}>
+                            <button className="enroll-btn" onClick={handleEnrollClick} disabled={isLoadingStatus || user?.role === 'admin'}>
                                 {getEnrollButtonText()}
                             </button>
                             <p className="guarantee">✓ ضمان استرجاع المال</p>
@@ -290,76 +473,21 @@ function CourseDetailsPage() {
             </div>
 
              {showPaymentForm && (
-                <div className="payment-form-overlay">
-                    <div className="payment-form-modal">
-                        <button className="close-modal-btn" onClick={() => setShowPaymentForm(false)} disabled={isSubmittingPayment}>×</button>
-                        <h2>إتمام الدفع للكورس: {course.title}</h2>
-                        <p>المبلغ المطلوب: <strong>{course.price} جنيه مصري</strong></p>
-                         <p className="payment-instructions">
-                            قم بتحويل المبلغ إلى الرقم/الحساب التالي حسب الطريقة المختارة ثم ارفق صورة الإيصال.
-                            <br/>
-                            {paymentMethod === 'vodafone_cash' ? 'فودافون كاش: 010xxxxxxxx' : 'انستا باي: user@instapay'}
-                         </p>
-
-                        {paymentError && <p className="payment-error">{paymentError}</p>}
-
-                        <form onSubmit={handlePaymentSubmit}>
-                            <div className="payment-form-group">
-                                <label>اختر طريقة الدفع:</label>
-                                <div className="payment-methods">
-                                    <label>
-                                        <input
-                                            type="radio"
-                                            name="paymentMethod"
-                                            value="vodafone_cash"
-                                            checked={paymentMethod === 'vodafone_cash'}
-                                            onChange={(e) => setPaymentMethod(e.target.value)}
-                                            disabled={isSubmittingPayment}
-                                        /> فودافون كاش
-                                    </label>
-                                    <label>
-                                        <input
-                                            type="radio"
-                                            name="paymentMethod"
-                                            value="instapay"
-                                            checked={paymentMethod === 'instapay'}
-                                            onChange={(e) => setPaymentMethod(e.target.value)}
-                                            disabled={isSubmittingPayment}
-                                        /> انستا باي
-                                    </label>
-                                </div>
-                            </div>
-
-                            <div className="payment-form-group">
-                                <label htmlFor="screenshot">إرفاق صورة الإيصال *</label>
-                                <input
-                                    type="file"
-                                    id="screenshot"
-                                    name="screenshot"
-                                    accept="image/png, image/jpeg, image/jpg"
-                                    onChange={handleFileChange}
-                                    ref={fileInputRef}
-                                    required
-                                    disabled={isSubmittingPayment}
-                                />
-                                {screenshotFile && <span className="file-name">{screenshotFile.name}</span>}
-                            </div>
-
-                            <button type="submit" className="payment-submit-btn" disabled={isSubmittingPayment}>
-                                {isSubmittingPayment ? 'جارِ الإرسال...' : 'تأكيد وإرسال للمراجعة'}
-                            </button>
-                        </form>
-                    </div>
-                </div>
+                <PaymentFormModal
+                    course={course}
+                    onClose={() => setShowPaymentForm(false)}
+                    onSubmit={handlePaymentSubmit}
+                    isLoading={isSubmittingPayment}
+                />
              )}
 
 
             <div className="course-body">
-                {/* ... (Tabs and Tab Content remain the same as previous step) ... */}
                  <div className="tabs">
-                    <button className={`tab ${activeTab === 'description' ? 'active' : ''}`} onClick={() => setActiveTab('description')}>الوصف</button>
-                    <button className={`tab ${activeTab === 'content' ? 'active' : ''}`} onClick={() => setActiveTab('content')}>المحتوى</button>
-                    <button className={`tab ${activeTab === 'faq' ? 'active' : ''}`} onClick={() => setActiveTab('faq')}>الأسئلة</button>
+                    <button className={`tab ${activeTab === 'description' ? 'active' : ''}`} onClick={() => handleTabClick('description')}>الوصف</button>
+                    <button className={`tab ${activeTab === 'content' ? 'active' : ''}`} onClick={() => handleTabClick('content')}>المحتوى</button>
+                    <button className={`tab ${activeTab === 'reviews' ? 'active' : ''}`} onClick={() => handleTabClick('reviews')}>التقييمات</button>
+                    <button className={`tab ${activeTab === 'faq' ? 'active' : ''}`} onClick={() => handleTabClick('faq')}>الأسئلة</button>
                 </div>
                 <div className="tab-content">
                     {activeTab === 'description' && (
@@ -400,26 +528,56 @@ function CourseDetailsPage() {
                            {!isLoadingLessons && !error && (
                              <div className="lessons-list">
                                {lessons.map((lesson, index) => (
-                                 <div key={lesson.lesson_id} className={`lesson-item ${!lesson.is_accessible ? 'lesson-locked' : ''}`}>
+                                 <div key={lesson.lesson_id} className="lesson-item">
                                    <div className="lesson-number">{index + 1}</div>
                                    <div className="lesson-info">
                                      <h4>{lesson.title}</h4>
                                      <span className="lesson-duration">🕐 {lesson.duration || '-'}</span>
                                    </div>
-                                   {(lesson.is_preview || lesson.is_accessible) ? (
+                                   {lesson.is_accessible ? (
                                      <button className="preview-btn" onClick={() => navigate(`/course/${course.course_id}/watch`, { state: { lessonId: lesson.lesson_id } })}>
-                                       {lesson.is_preview ? 'معاينة' : 'مشاهدة'}
+                                       <i className="fas fa-play-circle"></i> مشاهدة
                                      </button>
                                    ) : (
-                                       <span className="lock-icon" title="يجب التسجيل للمشاهدة">🔒</span>
+                                     <button className="preview-btn locked" disabled>
+                                        <i className="fas fa-lock"></i> مشاهدة
+                                     </button>
                                    )}
                                  </div>
                                ))}
                                 {lessons.length === 0 && !isLoadingLessons && <p>سيتم إضافة الدروس.</p>}
                              </div>
                            )}
-                            {!isAuthenticated && !authLoading && !isLoadingLessons && <p style={{marginTop: '1rem', color: 'var(--text-secondary)'}}> <Link to="/login" style={{color: '#f18c7e'}}>سجل الدخول</Link> أو <Link to="/register" style={{color: '#f18c7e'}}>أنشئ حساباً</Link> لعرض الدروس والالتحاق.</p>}
                         </div>
+                    )}
+                     {activeTab === 'reviews' && (
+                       <div className="reviews-tab-content">
+                         <h2><i className="fas fa-star"></i> تقييمات الطلاب</h2>
+                         
+                         {(enrollmentStatus === 'approved' || user?.role === 'admin') && (
+                           <form className="add-review-form" onSubmit={handleReviewSubmit}>
+                             <h3><i className="fas fa-plus-circle"></i> أضف تقييمك</h3>
+                             <StarRatingInput rating={newReviewRating} setRating={setNewReviewRating} />
+                             <textarea 
+                                placeholder="اكتب مراجعتك هنا..." 
+                                rows="4"
+                                value={newReviewText}
+                                onChange={(e) => setNewReviewText(e.target.value)}
+                                disabled={isSubmittingReview}
+                             ></textarea>
+                             <button type="submit" className="submit-review-btn" disabled={isSubmittingReview}>
+                                {isSubmittingReview ? 'جارِ الإرسال...' : 'إرسال التقييم'}
+                             </button>
+                           </form>
+                         )}
+
+                         <div className="reviews-list">
+                           {isLoadingReviews && <LoadingSpinner />}
+                           {!isLoadingReviews && (!reviews || reviews.length === 0) && (
+                             <p>لا توجد تقييمات لهذا الكورس حتى الآن.</p>
+                           )}
+                         </div>
+                       </div>
                     )}
                      {activeTab === 'faq' && (
                        <div className="faq-tab">

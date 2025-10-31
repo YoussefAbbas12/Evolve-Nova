@@ -138,6 +138,15 @@
   box-shadow: 0 5px 20px rgba(241, 140, 126, 0.4);
 }
 
+.enroll-btn:disabled {
+  background: var(--border-color);
+  color: var(--text-secondary);
+  opacity: 0.7;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
 .guarantee {
   text-align: center;
   margin-top: 1rem;
@@ -243,7 +252,7 @@
 }
 
 .content-tab h2,
-.reviews-tab h2,
+.reviews-tab-content h2,
 .faq-tab h2 {
   color: var(--text-primary);
   margin-bottom: 1.5rem;
@@ -348,11 +357,32 @@
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .preview-btn:hover {
   background: #f18c7e;
   color: white;
+}
+
+.preview-btn.locked {
+  background: var(--bg-secondary);
+  border-color: var(--border-color);
+  color: var(--text-secondary);
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+.preview-btn.locked:hover {
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+}
+
+.lock-icon {
+  font-size: 1.5rem;
+  color: var(--text-secondary);
+  opacity: 0.7;
 }
 
 .rating-summary {
@@ -436,6 +466,7 @@
 
 .review-rating {
   font-size: 1.2rem;
+  color: #ffa500;
 }
 
 .review-comment {
@@ -584,17 +615,16 @@
 }
 
 .enroll-btn.pending {
-    background: #FFC107; /* Amber */
+    background: #FFC107;
     color: #333;
     cursor: not-allowed;
     box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
 }
 .enroll-btn.pending:hover {
-    transform: translateY(0); /* Remove hover effect */
+    transform: translateY(0);
     box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
 }
 
-/* نمط لرسالة النجاح فوق الهيدر */
 .payment-success-banner {
   padding: 1rem;
   background-color: rgba(76, 175, 80, 0.9);
@@ -604,6 +634,104 @@
   font-size: 1.1rem;
   width: 100%;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  z-index: 10; /* Make sure it's above the header content */
+  z-index: 10;
   animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slideInUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.reviews-tab-content {
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.add-review-form {
+  background: var(--bg-secondary);
+  padding: 1.5rem;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  margin-bottom: 2.5rem;
+}
+
+.add-review-form h3 {
+  font-size: 1.3rem;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.stars-input {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  color: #ffa500;
+  cursor: pointer;
+}
+.stars-input span {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-left: 0.5rem;
+}
+.stars-input i {
+  margin: 0 0.2rem;
+  transition: transform 0.2s ease;
+}
+.stars-input i:hover {
+    transform: scale(1.2);
+}
+
+.add-review-form textarea {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid var(--border-color);
+  border-radius: 10px;
+  font-size: 1rem;
+  font-family: 'Changa', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+  margin-bottom: 1rem;
+  min-height: 100px;
+}
+.add-review-form textarea:focus {
+  outline: none;
+  border-color: #f18c7e;
+}
+
+.submit-review-btn {
+  padding: 0.8rem 2rem;
+  background: linear-gradient(135deg, #f18c7e, #66bfbf);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: bold;
+  font-family: 'Changa', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.submit-review-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(241, 140, 126, 0.3);
+}
+.submit-review-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.reviews-list p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    text-align: center;
+    padding: 1rem;
 }

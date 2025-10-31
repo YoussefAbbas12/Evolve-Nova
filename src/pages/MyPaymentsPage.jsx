@@ -12,10 +12,23 @@ const ErrorDisplay = ({ message }) => (
     <div className="error-message">{message || 'فشل تحميل البيانات'}</div>
 );
 
+const ImagePreviewModal = ({ src, onClose }) => {
+    if (!src) return null;
+    return (
+        <div className="image-preview-overlay" onClick={onClose}>
+            <div className="image-preview-modal" onClick={(e) => e.stopPropagation()}>
+                <button className="image-preview-close" onClick={onClose}>×</button>
+                <img src={src} alt="Payment Screenshot" />
+            </div>
+        </div>
+    );
+};
+
 function MyPaymentsPage() {
   const [payments, setPayments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
+  const [previewImage, setPreviewImage] = useState(null);
 
   useEffect(() => {
     const fetchPayments = async () => {
@@ -62,10 +75,11 @@ function MyPaymentsPage() {
      }
    };
 
-
   return (
     <div className="my-payments-page">
-      <Navbar showBackButton={true} CourcePage={true} isDark={true} />
+      <Navbar showBackButton={true} CourcePage={true} />
+
+      <ImagePreviewModal src={previewImage} onClose={() => setPreviewImage(null)} />
 
       <div className="page-header">
         <h1>سجل المدفوعات</h1>
@@ -97,7 +111,11 @@ function MyPaymentsPage() {
                       <p><strong>طريقة الدفع:</strong> {payment.method === 'vodafone_cash' ? 'فودافون كاش' : 'انستا باي'}</p>
                       <p><strong>تاريخ الطلب:</strong> {new Date(payment.created_at).toLocaleDateString('ar-EG', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
                        {payment.screenshot_url && (
-                          <p><strong>الإيصال:</strong> <a href={payment.screenshot_url} target="_blank" rel="noopener noreferrer">عرض الإيصال</a></p>
+                          <p><strong>الإيصال:</strong> 
+                            <button onClick={() => setPreviewImage(payment.screenshot_url)} className="receipt-link-button">
+                                عرض الإيصال
+                            </button>
+                          </p>
                        )}
                     </div>
                   </div>

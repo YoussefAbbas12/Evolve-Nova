@@ -12,6 +12,7 @@ import ProfilePage from './pages/ProfilePage';
 import AdminDashboardPage from './pages/admin/AdminDashboardPage';
 import ManageCoursesPage from './pages/admin/ManageCoursesPage'; 
 import ManagePaymentsPage from './pages/admin/ManagePaymentsPage'; 
+import ManageUsersPage from './pages/admin/ManageUsersPage'; // ✨ إضافة الصفحة الجديدة
 
 function App() {
   return (
@@ -34,7 +35,7 @@ function App() {
         element={<ProtectedRoute><MyPaymentsPage /></ProtectedRoute>}
       />
       <Route
-          path="/profile" // إضافة مسار الملف الشخصي
+          path="/profile"
           element={<ProtectedRoute><ProfilePage /></ProtectedRoute>}
        />
 
@@ -50,6 +51,11 @@ function App() {
         <Route
          path="/admin/manage-payments"
          element={<ProtectedRoute adminOnly={true}><ManagePaymentsPage /></ProtectedRoute>}
+       />
+       {/* ✨ إضافة المسار الجديد */}
+       <Route
+         path="/admin/users"
+         element={<ProtectedRoute adminOnly={true}><ManageUsersPage /></ProtectedRoute>}
        />
 
     </Routes>

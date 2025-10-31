@@ -16,7 +16,6 @@ export const changePassword = (passwords) => apiClient.put('/auth/change-passwor
 
 export const getAllCourses = (params) => apiClient.get('/courses', { params }); 
 export const getCourseById = (courseId) => apiClient.get(`/courses/${courseId}`);
-export const getPreviewLesson = (courseId) => apiClient.get(`/courses/${courseId}/preview`);
 
 export const getCourseLessons = (courseId) => apiClient.get(`/courses/${courseId}/lessons`);
 export const getLessonById = (courseId, lessonId) => apiClient.get(`/courses/${courseId}/lessons/${lessonId}`); 
@@ -42,13 +41,14 @@ export const rejectPayment = (paymentId) => apiClient.put(`/payments/${paymentId
 export const getAllPaymentsAdmin = (params) => apiClient.get('/payments', { params }); 
 export const deletePaymentAdmin = (paymentId) => apiClient.delete(`/payments/${paymentId}`); 
 
-export const getAllUsersAdmin = (params) => apiClient.get('/admin/users', { params }); // يتطلب admin auth
-export const searchUsersAdmin = (query) => apiClient.get('/admin/users/search', { params: { q: query } }); // يتطلب admin auth
-export const getUserDetailsAdmin = (userId) => apiClient.get(`/admin/users/${userId}`); // يتطلب admin auth
-export const updateUserAdmin = (userId, userData) => apiClient.put(`/admin/users/${userId}`, userData); // يتطلب admin auth
-export const updateUserStatusAdmin = (userId, status) => apiClient.patch(`/admin/users/${userId}/status`, { status }); // يتطلب admin auth
+export const getAllUsersAdmin = (params) => apiClient.get('/admin/users', { params });
+export const searchUsersAdmin = (query) => apiClient.get('/admin/users/search', { params: { q: query } });
+export const getUserDetailsAdmin = (userId) => apiClient.get(`/admin/users/${userId}`);
+export const updateUserAdmin = (userId, userData) => apiClient.put(`/admin/users/${userId}`, userData);
+export const updateUserStatusAdmin = (userId, status) => apiClient.patch(`/admin/users/${userId}/status`, { status });
 export const deleteUserAdmin = (userId) => apiClient.delete(`/admin/users/${userId}`); 
 export const getDashboardStatsAdmin = () => apiClient.get('/admin/dashboard'); 
+export const resetPaymentsAdmin = () => apiClient.delete('/admin/payments/reset'); 
 
 
-export default apiClient; 
+export default apiClient;

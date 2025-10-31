@@ -10,7 +10,7 @@ function EvolvePage() {
 
   return (
     <div className="evolve-page">
-      <Navbar />
+      <Navbar showThemeToggle={false}/>
       <Hero
         title={heroData.title}
         description={heroData.description}
