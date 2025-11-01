@@ -9,7 +9,7 @@ const SuccessMessage = ({ message }) => <div className="profile-success">{messag
 const ErrorMessage = ({ message }) => <div className="profile-error">{message}</div>;
 
 function ProfilePage() {
-    const { user, isLoading: authLoading, logout } = useAuth(); // Get user directly
+    const { user, isLoading: authLoading, logout } = useAuth(); 
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -40,9 +40,7 @@ function ProfilePage() {
         try {
             const dataToUpdate = { name, email };
             await updateUserProfile(dataToUpdate);
-            setProfileSuccess('تم تحديث بيانات الملف الشخصي بنجاح!');
-            // Note: AuthContext needs a way to refresh user data after update
-            // For now, inform user to potentially re-login for changes to reflect everywhere
+            setProfileSuccess('تم تحديث بيانات الملف الشخصي بنجاح!');
         } catch (err) {
             console.error("Profile update failed:", err);
             setProfileError(err.response?.data?.error || 'فشل تحديث الملف الشخصي.');
@@ -65,11 +63,9 @@ function ProfilePage() {
             setPasswordSuccess('تم تغيير كلمة المرور بنجاح. سيتم تسجيل خروجك الآن.');
             setCurrentPassword('');
             setNewPassword('');
-            setConfirmNewPassword('');
-            // Log out after successful password change
+            setConfirmNewPassword('');
             setTimeout(async () => {
-                await logout();
-                // Navigate might happen automatically due to AuthContext state change if App structure handles it
+                await logout();
             }, 2000);
         } catch (err) {
             console.error("Password change failed:", err);
@@ -107,7 +103,7 @@ function ProfilePage() {
             </div>
             <div className="profile-container">
 
-                {/* Update Profile Form */}
+                {}
                 <div className="profile-section">
                     <h2>تعديل البيانات الشخصية</h2>
                     {profileError && <ErrorMessage message={profileError} />}
@@ -141,7 +137,7 @@ function ProfilePage() {
                     </form>
                 </div>
 
-                {/* Change Password Form */}
+                {}
                 <div className="profile-section">
                     <h2>تغيير كلمة المرور</h2>
                     {passwordError && <ErrorMessage message={passwordError} />}

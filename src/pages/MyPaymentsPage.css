@@ -100,16 +100,16 @@
 }
 
 .status-approved {
-  background-color: #4CAF50; /* Green */
+  background-color: #4CAF50; 
 }
 
 .status-pending {
-  background-color: #FFC107; /* Amber */
+  background-color: #FFC107; 
   color: #333;
 }
 
 .status-rejected {
-  background-color: #F44336; /* Red */
+  background-color: #F44336; 
 }
 
 .payment-card-body {

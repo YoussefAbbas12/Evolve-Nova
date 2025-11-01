@@ -138,7 +138,7 @@ function AdminDashboardPage() {
           await resetPaymentsAdmin();
           setShowConfirmReset(false);
           setShowRevenueModal(false);
-          fetchStats(); // إعادة جلب الإحصائيات بعد التصفير
+          fetchStats(); 
       } catch (err) {
           console.error("Failed to reset payments:", err);
           setResetError(err.response?.data?.error || 'فشل تصفير المدفوعات.');

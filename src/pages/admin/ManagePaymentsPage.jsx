@@ -15,7 +15,7 @@ function ManagePaymentsPage() {
   const [pendingPayments, setPendingPayments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
-  const [processingId, setProcessingId] = useState(null); // لتتبع الدفعة التي تتم معالجتها
+  const [processingId, setProcessingId] = useState(null); 
 
   const fetchPending = async () => {
     setIsLoading(true);

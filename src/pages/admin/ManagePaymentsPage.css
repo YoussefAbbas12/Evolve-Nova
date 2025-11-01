@@ -15,7 +15,7 @@
 }
 
 .payments-table-container {
-  overflow-x: auto; /* Allow horizontal scrolling on small screens */
+  overflow-x: auto; 
   background: var(--card-bg);
   border-radius: 8px;
   box-shadow: 0 4px 15px var(--shadow);
@@ -25,13 +25,13 @@
 .payments-table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 800px; /* Minimum width before scrolling */
+  min-width: 800px; 
 }
 
 .payments-table th,
 .payments-table td {
   padding: 1rem;
-  text-align: right; /* Align text to the right for Arabic */
+  text-align: right; 
   border-bottom: 1px solid var(--border-color);
   vertical-align: middle;
 }
@@ -53,7 +53,7 @@
 
 .payments-table tbody tr.processing {
     opacity: 0.6;
-    pointer-events: none; /* Disable interactions while processing */
+    pointer-events: none; 
 }
 
 
@@ -70,7 +70,7 @@
 .action-buttons {
   display: flex;
   gap: 0.5rem;
-  justify-content: flex-start; /* Align buttons to the start (right in RTL) */
+  justify-content: flex-start; 
 }
 
 .action-buttons button {
@@ -107,22 +107,22 @@
     cursor: not-allowed;
 }
 
-/* Responsive adjustments for table */
+
 @media screen and (max-width: 850px) {
     .payments-table th,
     .payments-table td {
-        padding: 0.8rem 0.5rem; /* Reduce padding */
+        padding: 0.8rem 0.5rem; 
         font-size: 0.9rem;
     }
-     .payments-table th:nth-child(2), /* Hide email column on smaller screens */
+     .payments-table th:nth-child(2), 
      .payments-table td:nth-child(2) {
-        /* You might need a more robust way to target this column */
-        /* display: none; */
+        
+        
      }
 }
 
-/* General Admin Page Styles */
-.admin-manage-page, .admin-form-page /* Apply to both potentially */ {
+
+.admin-manage-page, .admin-form-page  {
   min-height: 100vh;
   background: var(--bg-primary);
   padding-top: 80px;
@@ -134,7 +134,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  text-align: right; /* Default to right for Arabic */
+  text-align: right; 
   padding: 1rem 2rem;
   background: var(--bg-secondary);
   border-bottom: 1px solid var(--border-color);
@@ -172,7 +172,7 @@
   padding: 0 1rem;
 }
 
-/* Loading and Error Styles */
+
 .admin-loading-indicator, .admin-error-message {
   text-align: center;
   padding: 3rem;
@@ -186,7 +186,7 @@
     border-radius: 8px;
 }
 
-/* Table Styles */
+
 .admin-table-container {
   overflow-x: auto;
   background: var(--card-bg);
@@ -198,7 +198,7 @@
 .admin-table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 900px; /* Adjust as needed */
+  min-width: 900px; 
 }
 
 .admin-table th,
@@ -207,7 +207,7 @@
   text-align: right;
   border-bottom: 1px solid var(--border-color);
   vertical-align: middle;
-  white-space: nowrap; /* Prevent text wrapping */
+  white-space: nowrap; 
 }
 
 .admin-table th {
@@ -215,7 +215,7 @@
   font-weight: bold;
   font-size: 0.9rem;
   color: var(--text-secondary);
-  position: sticky; /* Keep header visible on scroll */
+  position: sticky; 
   top: 0;
   z-index: 1;
 }
@@ -255,7 +255,7 @@
 .delete-btn { background-color: #F44336; color: white; }
 .delete-btn:hover { background-color: #d32f2f; transform: scale(1.05); }
 
-/* Form Modal Overlay */
+
 .admin-form-overlay {
   position: fixed;
   top: 0;
@@ -266,25 +266,25 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1050; /* Higher than navbar */
+  z-index: 1050; 
   padding: 1rem;
   animation: fadeIn 0.3s ease;
 }
 
-/* Modal Content */
+
 .admin-form-modal {
   background: var(--card-bg);
   padding: 1.5rem 2rem;
   border-radius: 10px;
   width: 95%;
-  max-width: 900px; /* Wider modal for course form */
-  max-height: 90vh; /* Limit height */
-  overflow-y: auto; /* Allow scrolling within modal */
+  max-width: 900px; 
+  max-height: 90vh; 
+  overflow-y: auto; 
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
   position: relative;
   border: 1px solid var(--border-color);
   animation: slideInUp 0.4s ease;
-  direction: rtl; /* Ensure RTL layout */
+  direction: rtl; 
 }
 
 .admin-form-modal h2 {
@@ -296,7 +296,7 @@
    padding-bottom: 1rem;
 }
 
-/* Reuse styles from AdminFormPage.css but adjust as needed */
+
 .admin-form-modal .form-grid { grid-template-columns: 1fr 1fr; gap: 1rem 1.5rem; margin-bottom: 1.5rem; }
 .admin-form-modal .form-group label { font-size: 0.85rem; margin-bottom: 0.3rem;}
 .admin-form-modal .form-group input,
@@ -334,11 +334,11 @@
     color: var(--text-primary);
 }
 
-/* Modal specific error/success messages */
+
 .form-error-modal, .form-success-modal {
    padding: 0.7rem 1rem;
    border-radius: 8px;
-   margin: -1rem auto 1rem auto; /* Position below title */
+   margin: -1rem auto 1rem auto; 
    font-size: 0.9rem;
    text-align: center;
    max-width: 90%;
@@ -347,15 +347,15 @@
 .form-success-modal { background-color: rgba(76,175,80,0.1); color: #4CAF50; border: 1px solid rgba(76,175,80,0.2); }
 
 
-/* Responsive adjustments for admin table and modal */
+
 @media screen and (max-width: 992px) {
     .admin-table { min-width: 700px; }
-    .admin-form-modal .form-grid { grid-template-columns: 1fr; } /* Stack form fields */
+    .admin-form-modal .form-grid { grid-template-columns: 1fr; } 
     .admin-form-modal .form-group.full-width { grid-column: auto; }
 }
 @media screen and (max-width: 576px) {
      .admin-page-header { flex-direction: column; gap: 1rem; }
-     .admin-table { min-width: 100%; } /* Allow wrapping on very small screens */
+     .admin-table { min-width: 100%; } 
      .admin-table th, .admin-table td { white-space: normal; padding: 0.6rem; font-size: 0.85rem;}
      .admin-table .action-buttons { flex-direction: column; align-items: flex-start; gap: 0.3rem;}
      .admin-form-modal { padding: 1rem 1.5rem; }
@@ -363,9 +363,9 @@
      .form-actions { flex-direction: column; }
 }
 
-/* --- ✨ أنماط جديدة لنافذة إدارة الدروس ✨ --- */
+
 .admin-form-modal.lessons-modal {
-    max-width: 800px; /* يمكن جعلها أعرض أو أضيق */
+    max-width: 800px; 
 }
 
 .close-lessons-modal {
@@ -385,8 +385,8 @@
 }
 
 .lessons-modal-content {
-    /* يمكن تقسيم النافذة لجزئين: الفورم وقائمة الدروس */
-    /* حالياً الفورم يظهر ويختفي فوق القائمة */
+    
+    
 }
 
 .lesson-form-container {
@@ -433,7 +433,7 @@
     justify-content: center;
     margin-top: 1rem;
 }
-/* استخدام نفس أزرار الفورم الرئيسي */
+
 .form-actions-lessons .admin-submit-btn,
 .form-actions-lessons .admin-cancel-btn {
     padding: 0.6rem 1.5rem;
@@ -448,7 +448,7 @@
 
 .lessons-list-container {
     margin-top: 1rem;
-    max-height: 40vh; /* تحديد أقصى ارتفاع للقائمة */
+    max-height: 40vh; 
     overflow-y: auto;
     padding: 0.5rem;
     border-top: 1px solid var(--border-color);
@@ -492,7 +492,7 @@
     display: flex;
     gap: 0.5rem;
 }
-/* الأزرار تستخدم نفس الأنماط العامة .edit-btn و .delete-btn */
+
 
 @keyframes fadeIn {
   from { opacity: 0; }
@@ -605,7 +605,7 @@
     cursor: not-allowed;
 }
 
-/* --- ✨ نافذة عرض الإيصال ✨ --- */
+
 .image-preview-overlay {
   position: fixed;
   top: 0;
@@ -616,10 +616,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1070; /* أعلى من النوافذ الأخرى */
+  z-index: 1070; 
   padding: 1rem;
   animation: fadeIn 0.3s ease;
-  direction: ltr; /* لضمان عرض الصورة بشكل صحيح */
+  direction: ltr; 
 }
 
 .image-preview-modal {

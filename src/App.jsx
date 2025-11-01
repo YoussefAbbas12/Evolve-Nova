@@ -12,12 +12,12 @@ import ProfilePage from './pages/ProfilePage';
 import AdminDashboardPage from './pages/admin/AdminDashboardPage';
 import ManageCoursesPage from './pages/admin/ManageCoursesPage'; 
 import ManagePaymentsPage from './pages/admin/ManagePaymentsPage'; 
-import ManageUsersPage from './pages/admin/ManageUsersPage'; // ✨ إضافة الصفحة الجديدة
+import ManageUsersPage from './pages/admin/ManageUsersPage'; 
 
 function App() {
   return (
     <Routes>
-      {/* Public Routes */}
+      {}
       <Route path="/" element={<EvolvePage />} />
       <Route path="/nova" element={<NovaPage />} />
       <Route path="/login" element={<LoginPage />} />
@@ -25,7 +25,7 @@ function App() {
       <Route path="/courses" element={<CoursesPage />} />
       <Route path="/course/:id" element={<CourseDetailsPage />} />
 
-      {/* Protected Routes (Student & Admin) */}
+      {}
       <Route
         path="/course/:id/watch"
         element={<ProtectedRoute><CourseWatchPage /></ProtectedRoute>}
@@ -39,7 +39,7 @@ function App() {
           element={<ProtectedRoute><ProfilePage /></ProtectedRoute>}
        />
 
-       {/* Admin Only Routes */}
+       {}
        <Route
          path="/admin/dashboard"
          element={<ProtectedRoute adminOnly={true}><AdminDashboardPage /></ProtectedRoute>}
@@ -52,7 +52,7 @@ function App() {
          path="/admin/manage-payments"
          element={<ProtectedRoute adminOnly={true}><ManagePaymentsPage /></ProtectedRoute>}
        />
-       {/* ✨ إضافة المسار الجديد */}
+       {}
        <Route
          path="/admin/users"
          element={<ProtectedRoute adminOnly={true}><ManageUsersPage /></ProtectedRoute>}
