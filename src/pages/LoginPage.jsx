@@ -18,7 +18,7 @@ function LoginPage() {
         setLoading(true);
         try {
             await login({ email, password });
-            navigate('/courses'); // توجيه إلى صفحة الكورسات بعد الدخول الناجح
+            navigate('/courses'); 
         } catch (err) {
             setError(err.response?.data?.error || 'فشل تسجيل الدخول. يرجى التحقق من بياناتك.');
             setLoading(false);

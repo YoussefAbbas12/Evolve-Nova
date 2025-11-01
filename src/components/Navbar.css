@@ -1,4 +1,4 @@
-/* Header with glassmorphism effect */
+
 .navbar {
   position: fixed;
   width: 100%;
@@ -95,7 +95,7 @@
   display: none;
 }
 
-/* Hamburger Menu */
+
 .hamburger {
   display: none;
   flex-direction: column;
@@ -149,7 +149,7 @@
   transform: rotate(-45deg) translate(7px, -6px);
 }
 
-/* Responsive Design */
+
 @media screen and (max-width: 768px) {
   .navbar {
     padding: 1rem;
@@ -199,14 +199,14 @@
   }
 }
 
-/* Add to Navbar.css */
+
 
 .nav-menu .login-button,
 .nav-menu .register-button,
 .nav-menu .logout-button {
   padding: 0.5rem 1.5rem !important;
   border-radius: 25px;
-  margin: 0 0.5rem; /* Add some spacing */
+  margin: 0 0.5rem; 
   transition: all 0.3s ease;
   font-weight: bold;
   cursor: pointer;
@@ -216,7 +216,7 @@
 .nav-menu .login-button {
   background-color: transparent;
   border: 2px solid #66bfbf;
-  color: #66bfbf !important; /* Important needed to override base link color */
+  color: #66bfbf !important; 
 }
 .nav-menu .login-button:hover {
   background-color: #66bfbf;
@@ -224,7 +224,7 @@
   transform: translateY(-2px);
 }
 .nav-menu .login-button::before {
-    display: none; /* Remove underline effect */
+    display: none; 
 }
 
 
@@ -239,15 +239,15 @@
   box-shadow: 0 6px 20px rgba(241, 140, 126, 0.4);
 }
 .nav-menu .register-button::before {
-    display: none; /* Remove underline effect */
+    display: none; 
 }
 
 .nav-menu .logout-button {
   background-color: transparent;
   border: 2px solid #ff6b6b;
   color: #ff6b6b !important;
-  font-family: 'Changa', sans-serif; /* Ensure font consistency */
-   font-size: inherit; /* Inherit font size from nav links */
+  font-family: 'Changa', sans-serif; 
+   font-size: inherit; 
 }
 
 .nav-menu .logout-button:hover {
@@ -256,21 +256,21 @@
    transform: translateY(-2px);
 }
 
-/* Responsive adjustments for auth buttons */
+
 @media screen and (max-width: 768px) {
   .nav-menu .login-button,
   .nav-menu .register-button,
   .nav-menu .logout-button {
     margin: 0.5rem auto;
     width: 80%;
-    display: block; /* Make them block level */
+    display: block; 
   }
    .nav-menu .logout-button {
-     padding: 1rem !important; /* Ensure consistent padding with other links */
+     padding: 1rem !important; 
    }
 }
 
-/* Ensure back-button still looks right */
+
 .nav-menu .back-button {
   background: linear-gradient(135deg, #f18c7e, #ff6b6b);
   color: white !important;
@@ -278,7 +278,7 @@
   border-radius: 25px;
   box-shadow: 0 4px 15px rgba(241, 140, 126, 0.3);
   transition: all 0.3s ease;
-  margin: 0 0.5rem; /* Add margin like other buttons */
+  margin: 0 0.5rem; 
 }
 
 .nav-menu .back-button:hover {

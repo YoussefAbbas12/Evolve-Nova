@@ -370,7 +370,7 @@
   line-height: 1.7;
 }
 
-/* Certificate Section */
+
 .certificate-section {
   max-width: 1400px;
   margin: 4rem auto 2rem;
@@ -550,7 +550,7 @@
   box-shadow: 0 4px 15px rgba(241, 140, 126, 0.4);
 }
 
-/* Responsive */
+
 @media (max-width: 992px) {
   .watch-content {
     grid-template-columns: 1fr;
@@ -621,21 +621,21 @@
   }
 }
 
-/* Add to CourseWatchPage.css */
+
 .lesson-item.locked {
   opacity: 0.6;
   cursor: not-allowed;
-  background-color: var(--bg-secondary); /* Slight background change */
+  background-color: var(--bg-secondary); 
 }
 
 .lesson-item.locked:hover {
-   background-color: var(--bg-secondary); /* Prevent hover effect */
+   background-color: var(--bg-secondary); 
 }
 
 .lock-mark {
   color: var(--text-secondary);
   font-size: 1.2rem;
-  margin-left: auto; /* Push to the right */
+  margin-left: auto; 
   padding-right: 5px;
 }
 

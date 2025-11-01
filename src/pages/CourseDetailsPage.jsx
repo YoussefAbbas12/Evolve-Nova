@@ -5,8 +5,8 @@ import {
     getCourseLessons,
     submitPayment,
     getMyPayments,
-    getCourseReviews, // <-- 1. استيراد دالة جلب التقييمات
-    submitReview      // <-- 2. استيراد دالة إرسال التقييم
+    getCourseReviews, 
+    submitReview      
 } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import Navbar from '../components/Navbar';
@@ -46,7 +46,7 @@ const StarRatingInput = ({ rating, setRating }) => {
     );
 };
 
-// 3. ✨ مكون جديد لعرض التقييم ✨
+
 const ReviewItem = ({ review }) => {
     const getInitials = (name) => {
         return name ? name.split(' ').map(n => n[0]).join('').toUpperCase() : '؟';
@@ -213,7 +213,7 @@ function CourseDetailsPage() {
     const [reviews, setReviews] = useState([]);
     const [isLoadingCourse, setIsLoadingCourse] = useState(true);
     const [isLoadingLessons, setIsLoadingLessons] = useState(false);
-    const [isLoadingReviews, setIsLoadingReviews] = useState(false); // 4. حالة تحميل للتقييمات
+    const [isLoadingReviews, setIsLoadingReviews] = useState(false); 
     const [error, setError] = useState('');
     const [activeTab, setActiveTab] = useState('description');
 
@@ -227,8 +227,8 @@ function CourseDetailsPage() {
     const [newReviewText, setNewReviewText] = useState('');
     const [newReviewRating, setNewReviewRating] = useState(0);
     const [isSubmittingReview, setIsSubmittingReview] = useState(false);
-    const [reviewError, setReviewError] = useState(''); // 5. حالة خطأ لإرسال التقييم
-    const [userHasReviewed, setUserHasReviewed] = useState(false); // 6. تتبع هل المستخدم قيّم
+    const [reviewError, setReviewError] = useState(''); 
+    const [userHasReviewed, setUserHasReviewed] = useState(false); 
 
     const fetchCourseData = async (forceReload = false) => {
         if (!forceReload) {
@@ -314,7 +314,7 @@ function CourseDetailsPage() {
         }
     };
 
-    // 7. ✨ دالة جلب التقييمات (مفعلة) ✨
+    
     const fetchReviewsData = async () => {
         if (isLoadingReviews) return;
         setIsLoadingReviews(true);
@@ -323,7 +323,7 @@ function CourseDetailsPage() {
             const fetchedReviews = response.data.reviews || [];
             setReviews(fetchedReviews);
 
-            // التحقق إذا كان المستخدم الحالي قد قيّم
+            
             if (isAuthenticated && user) {
                 const userReview = fetchedReviews.find(r => r.user_id === user.user_id);
                 setUserHasReviewed(!!userReview);
@@ -342,7 +342,7 @@ function CourseDetailsPage() {
             fetchLessonsData();
         }
         if (tab === 'reviews') {
-            fetchReviewsData(); // استدعاء الدالة المحدثة
+            fetchReviewsData(); 
         }
     };
 
@@ -396,7 +396,7 @@ function CourseDetailsPage() {
         }
     };
 
-    // 8. ✨ دالة إرسال التقييم (مفعلة) ✨
+    
     const handleReviewSubmit = async (e) => {
         e.preventDefault();
         setReviewError('');
@@ -418,18 +418,18 @@ function CourseDetailsPage() {
                 comment: newReviewText
             });
 
-            // إضافة التقييم الجديد يدوياً في بداية القائمة
+            
             const newReview = {
                 ...response.data.review,
-                user_name: user.name // إضافة اسم المستخدم الحالي للتقييم الجديد
+                user_name: user.name 
             };
             setReviews([newReview, ...reviews]);
 
             setNewReviewText('');
             setNewReviewRating(0);
-            setUserHasReviewed(true); // تم التقييم
+            setUserHasReviewed(true); 
 
-            // تحديث بيانات الكورس (لإظهار متوسط التقييم الجديد)
+            
             fetchCourseData(true);
 
         } catch (err) {
@@ -490,7 +490,7 @@ function CourseDetailsPage() {
         );
     }
 
-    // 9. ✨ متغير لتحديد هل يمكن للطالب التقييم ✨
+    
     const canReview = (enrollmentStatus === 'approved' || user?.role === 'admin') && !userHasReviewed;
 
     return (
@@ -628,7 +628,7 @@ function CourseDetailsPage() {
                         <div className="reviews-tab-content">
                             <h2><i className="fas fa-star"></i> تقييمات الطلاب</h2>
 
-                            {/* 10. ✨ تفعيل فورم التقييم ✨ */}
+                            {}
                             {canReview && (
                                 <form className="add-review-form" onSubmit={handleReviewSubmit}>
                                     <h3><i className="fas fa-plus-circle"></i> أضف تقييمك</h3>
@@ -646,7 +646,7 @@ function CourseDetailsPage() {
                                     </button>
                                 </form>
                             )}
-                            {/* إظهار رسالة إذا كان الطالب مسجل ولكنه قيّم بالفعل */}
+                            {}
                             {enrollmentStatus === 'approved' && userHasReviewed && (
                                 <p className="payment-success-banner" style={{ marginBottom: '2rem' }}>شكراً لك، لقد قمت بتقييم هذا الكورس بالفعل.</p>
                             )}
@@ -656,7 +656,7 @@ function CourseDetailsPage() {
                                 {!isLoadingReviews && reviews.length === 0 && (
                                     <p>لا توجد تقييمات لهذا الكورس حتى الآن.</p>
                                 )}
-                                {/* 11. ✨ عرض التقييمات ✨ */}
+                                {}
                                 {!isLoadingReviews && reviews.length > 0 && (
                                     reviews.map(review => (
                                         <ReviewItem key={review.review_id} review={review} />

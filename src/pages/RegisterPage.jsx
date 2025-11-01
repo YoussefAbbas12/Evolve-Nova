@@ -4,7 +4,7 @@ import { registerUser } from '../services/api';
 import Navbar from '../components/Navbar';
 import './AuthPage.css';
 
-// --- ✨ دالة مساعدة للتحقق من الإيميل ✨ ---
+
 const validateEmail = (email) => {
   const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return re.test(String(email).toLowerCase());
@@ -16,13 +16,13 @@ function RegisterPage() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   
-  // --- ✨ حالات جديدة للأخطاء الفورية ✨ ---
+  
   const [nameError, setNameError] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
 
-  // --- ✨ حالة جديدة لمتطلبات كلمة المرور ✨ ---
+  
   const [passwordCriteria, setPasswordCriteria] = useState({
     length: false,
     lowercase: false,
@@ -31,12 +31,12 @@ function RegisterPage() {
     specialChar: false,
   });
 
-  const [apiError, setApiError] = useState(''); // خطأ من السيرفر
+  const [apiError, setApiError] = useState(''); 
   const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  // --- ✨ دالة التحقق من كلمة المرور (Live) ✨ ---
+  
   const validatePassword = (pass) => {
     const length = pass.length >= 8;
     const lowercase = /[a-z]/.test(pass);

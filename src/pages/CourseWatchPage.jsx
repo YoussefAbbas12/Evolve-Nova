@@ -3,7 +3,7 @@ import { useParams, Link, useNavigate, useLocation } from 'react-router-dom';
 import { getCourseById, getCourseLessons } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import Navbar from '../components/Navbar';
-// لا حاجة لـ ReactPlayer
+
 import './CourseWatchPage.css';
 
 const LoadingSpinner = () => (
@@ -32,7 +32,7 @@ function CourseWatchPage() {
   const [error, setError] = useState('');
   const [showReviews, setShowReviews] = useState(false);
 
-  // إعادة تفعيل المحاكاة بالوقت
+  
   const [videoWatchedPercent, setVideoWatchedPercent] = useState(0);
   const videoEndTimerRef = useRef(null);
 
@@ -67,7 +67,7 @@ function CourseWatchPage() {
         const fetchedLessons = lessonsResponse.data.lessons || [];
         setLessons(fetchedLessons);
         
-        const fetchedCompleted = []; // مؤقتاً
+        const fetchedCompleted = []; 
         setCompletedLessons(fetchedCompleted);
 
 
@@ -113,18 +113,18 @@ function CourseWatchPage() {
   }, [courseId, isAuthenticated, authLoading, navigate, location.state]);
 
 
-  // إعادة تفعيل مؤقت محاكاة مشاهدة الفيديو
+  
   useEffect(() => {
-     setVideoWatchedPercent(0); // إعادة تعيين عند تغيير الدرس
+     setVideoWatchedPercent(0); 
      if (videoEndTimerRef.current) clearTimeout(videoEndTimerRef.current);
      
      if (currentLesson && !completedLessons.includes(currentLesson.lesson_id)) {
-        // محاكاة وقت المشاهدة (5 ثواني كمثال)
+        
         videoEndTimerRef.current = setTimeout(() => {
-            setVideoWatchedPercent(100); // محاكاة اكتمال المشاهدة
-        }, 5000); // 5 ثواني
+            setVideoWatchedPercent(100); 
+        }, 5000); 
      } else if (currentLesson && completedLessons.includes(currentLesson.lesson_id)){
-         setVideoWatchedPercent(100); // مكتمل بالفعل
+         setVideoWatchedPercent(100); 
      }
 
      return () => clearTimeout(videoEndTimerRef.current);
@@ -146,7 +146,7 @@ function CourseWatchPage() {
       const newCompleted = [...completedLessons, currentLesson.lesson_id];
       setCompletedLessons(newCompleted);
 
-      // TODO: إرسال تحديث الإكمال للباك اند لاحقاً
+      
 
       if (newCompleted.length === lessons.length) {
         console.log("Course completed!");
@@ -178,7 +178,7 @@ function CourseWatchPage() {
                  const finalCompleted = [...completedLessons, currentLesson.lesson_id];
                  setCompletedLessons(finalCompleted);
                  if (finalCompleted.length === lessons.length) {
-                     // اكتمل الكورس
+                     
                  }
              }
         }
@@ -186,7 +186,7 @@ function CourseWatchPage() {
          const finalCompleted = [...completedLessons, currentLesson.lesson_id];
          setCompletedLessons(finalCompleted);
          if (finalCompleted.length === lessons.length) {
-             // اكتمل الكورس
+             
          }
     }
   };
@@ -246,7 +246,7 @@ function CourseWatchPage() {
         <div className="video-section">
            {currentLesson.video_url ? (
                <div className="video-player">
-                 {/* --- العودة إلى IFRAME --- */}
+                 {}
                  <iframe
                    key={currentLesson.lesson_id}
                    src={currentLesson.video_url}
@@ -269,7 +269,7 @@ function CourseWatchPage() {
               <button
                 className="complete-btn"
                 onClick={handleMarkComplete}
-                // استخدام الحالة القديمة المبنية على الوقت
+                
                 disabled={videoWatchedPercent < 100 || completedLessons.includes(currentLesson.lesson_id)}
               >
                 {completedLessons.includes(currentLesson.lesson_id) ? '✓ مكتمل' : 'وضع علامة كمكتمل'}

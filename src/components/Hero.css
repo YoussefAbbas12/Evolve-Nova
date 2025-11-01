@@ -1,4 +1,4 @@
-/* Animated gradient background for hero section */
+
 @keyframes gradientShift {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
@@ -251,7 +251,7 @@
   animation-delay: 0.4s;
 }
 
-/* Responsive */
+
 @media screen and (max-width: 1024px) {
   .hero {
     flex-direction: column-reverse;
