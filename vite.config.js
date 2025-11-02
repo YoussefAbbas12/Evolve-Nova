@@ -1,4 +1,4 @@
-// Mahmoud Nagy
+// vite.config.js
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc'
 
@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://evolve-nova-back.vercel.app/',
+        target: 'https://pulse-academy-backend.vercel.app/', // Your backend URL
         changeOrigin: true,
       },
     },
