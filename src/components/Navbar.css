@@ -27,6 +27,7 @@
   order: -1;
   transition: transform 0.3s ease;
   animation: logoFloat 3s ease-in-out infinite;
+  Border-radius: 50%;
 }
 
 @keyframes logoFloat {

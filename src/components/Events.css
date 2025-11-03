@@ -1,8 +1,9 @@
 .events-section {
   padding: 70px 20px;
-  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  background: var(--bg-secondary);
   text-align: center;
   position: relative;
+  transition: background-color 0.3s ease;
 }
 
 .events-grid {
@@ -15,17 +16,17 @@
 }
 
 .event-card {
-  background: white;
+  background: var(--card-bg);
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 40px var(--shadow);
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   position: relative;
 }
 
 .event-card:hover {
   transform: translateY(-15px) rotateX(5deg);
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 25px 60px var(--shadow);
 }
 
 .event-image {
@@ -44,7 +45,7 @@
   font-size: 20px;
   font-weight: bold;
   margin: 20px 15px 10px;
-  color: #333;
+  color: var(--text-primary);
   background: linear-gradient(135deg, #f18c7e, #66bfbf);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -53,7 +54,7 @@
 
 .event-description {
   font-size: 16px;
-  color: #555;
+  color: var(--text-secondary);
   margin: 0 15px 20px;
   line-height: 1.8;
 }

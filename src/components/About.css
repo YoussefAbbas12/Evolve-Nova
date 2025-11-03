@@ -1,10 +1,11 @@
 .about-youth {
-  background: linear-gradient(135deg, #e6f7f7, #f0f8ff);
+  background: var(--bg-secondary);
   padding: 80px 20px;
   font-family: 'Cairo', sans-serif;
   direction: rtl;
   position: relative;
   overflow: hidden;
+  transition: background-color 0.3s ease;
 }
 
 .about-container {
@@ -20,23 +21,22 @@
 
 .about-content {
   flex: 1 1 500px;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
+  background: var(--card-bg);
   padding: 40px;
   border-radius: 25px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 20px 60px var(--shadow);
   transition: all 0.4s ease;
 }
 
 .about-content:hover {
   transform: translateY(-10px);
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 30px 80px var(--shadow);
 }
 
 .section-title {
   font-size: 36px;
   font-weight: bold;
-  color: #070707;
+  color: var(--text-primary);
   margin-bottom: 20px;
   text-align: center;
   position: relative;
@@ -57,12 +57,12 @@
   font-size: 20px;
   line-height: 2;
   margin-bottom: 30px;
-  color: #333;
+  color: var(--text-secondary);
   text-align: center;
 }
 
 .about-card {
-  background: linear-gradient(135deg, #f9f9f9, #ffffff);
+  background: var(--bg-secondary);
   padding: 25px;
   border-radius: 15px;
   border-right: 5px solid transparent;
@@ -75,7 +75,7 @@
 
 .about-card:hover {
   transform: translateX(-10px);
-  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 5px 5px 20px var(--shadow);
 }
 
 .card-title {
@@ -85,7 +85,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  color: #000000;
+  color: var(--text-primary);
 }
 
 .about-image {
@@ -102,12 +102,12 @@
   object-fit: cover;
   max-width: 600px;
   transition: all 0.4s ease;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 20px 50px var(--shadow);
 }
 
 .about-image img:hover {
   transform: scale(1.05) rotate(2deg);
-  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 30px 70px var(--shadow);
 }
 
 .about-video-section {
@@ -115,19 +115,20 @@
   padding: 20px;
   margin: 60px 0;
   border-radius: 40px;
-  background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+  background: var(--border-color);
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
   overflow: hidden;
+  transition: background-color 0.3s ease;
 }
 
 .about-video-section video {
   width: 90%;
   max-height: 560px;
   border-radius: 30px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 20px 60px var(--shadow);
   object-fit: cover;
   transition: all 0.4s ease;
   position: relative;
@@ -136,5 +137,5 @@
 
 .about-video-section video:hover {
   transform: scale(1.02);
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 30px 80px var(--shadow);
 }
