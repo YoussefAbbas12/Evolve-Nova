@@ -32,7 +32,6 @@ function CourseWatchPage() {
   const [error, setError] = useState('');
   const [showReviews, setShowReviews] = useState(false);
 
-  
   const [videoWatchedPercent, setVideoWatchedPercent] = useState(0);
   const videoEndTimerRef = useRef(null);
 
@@ -112,14 +111,12 @@ function CourseWatchPage() {
     fetchData();
   }, [courseId, isAuthenticated, authLoading, navigate, location.state]);
 
-
-  
   useEffect(() => {
      setVideoWatchedPercent(0); 
      if (videoEndTimerRef.current) clearTimeout(videoEndTimerRef.current);
      
      if (currentLesson && !completedLessons.includes(currentLesson.lesson_id)) {
-        
+
         videoEndTimerRef.current = setTimeout(() => {
             setVideoWatchedPercent(100); 
         }, 5000); 
@@ -146,7 +143,6 @@ function CourseWatchPage() {
       const newCompleted = [...completedLessons, currentLesson.lesson_id];
       setCompletedLessons(newCompleted);
 
-      
 
       if (newCompleted.length === lessons.length) {
         console.log("Course completed!");
@@ -178,7 +174,7 @@ function CourseWatchPage() {
                  const finalCompleted = [...completedLessons, currentLesson.lesson_id];
                  setCompletedLessons(finalCompleted);
                  if (finalCompleted.length === lessons.length) {
-                     
+
                  }
              }
         }
@@ -186,7 +182,7 @@ function CourseWatchPage() {
          const finalCompleted = [...completedLessons, currentLesson.lesson_id];
          setCompletedLessons(finalCompleted);
          if (finalCompleted.length === lessons.length) {
-             
+
          }
     }
   };
@@ -269,7 +265,7 @@ function CourseWatchPage() {
               <button
                 className="complete-btn"
                 onClick={handleMarkComplete}
-                
+
                 disabled={videoWatchedPercent < 100 || completedLessons.includes(currentLesson.lesson_id)}
               >
                 {completedLessons.includes(currentLesson.lesson_id) ? '✓ مكتمل' : 'وضع علامة كمكتمل'}

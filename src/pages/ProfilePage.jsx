@@ -40,9 +40,7 @@ function ProfilePage() {
         try {
             const dataToUpdate = { name, email };
             await updateUserProfile(dataToUpdate);
-            setProfileSuccess('تم تحديث بيانات الملف الشخصي بنجاح!');
-            
-            
+            setProfileSuccess('تم تحديث بيانات الملف الشخصي بنجاح!');
         } catch (err) {
             console.error("Profile update failed:", err);
             setProfileError(err.response?.data?.error || 'فشل تحديث الملف الشخصي.');
@@ -65,11 +63,9 @@ function ProfilePage() {
             setPasswordSuccess('تم تغيير كلمة المرور بنجاح. سيتم تسجيل خروجك الآن.');
             setCurrentPassword('');
             setNewPassword('');
-            setConfirmNewPassword('');
-            
+            setConfirmNewPassword('');
             setTimeout(async () => {
-                await logout();
-                
+                await logout();
             }, 2000);
         } catch (err) {
             console.error("Password change failed:", err);

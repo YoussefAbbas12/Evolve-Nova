@@ -46,7 +46,6 @@ const StarRatingInput = ({ rating, setRating }) => {
     );
 };
 
-
 const ReviewItem = ({ review }) => {
     const getInitials = (name) => {
         return name ? name.split(' ').map(n => n[0]).join('').toUpperCase() : '؟';
@@ -314,7 +313,6 @@ function CourseDetailsPage() {
         }
     };
 
-    
     const fetchReviewsData = async () => {
         if (isLoadingReviews) return;
         setIsLoadingReviews(true);
@@ -323,7 +321,6 @@ function CourseDetailsPage() {
             const fetchedReviews = response.data.reviews || [];
             setReviews(fetchedReviews);
 
-            
             if (isAuthenticated && user) {
                 const userReview = fetchedReviews.find(r => r.user_id === user.user_id);
                 setUserHasReviewed(!!userReview);
@@ -396,7 +393,6 @@ function CourseDetailsPage() {
         }
     };
 
-    
     const handleReviewSubmit = async (e) => {
         e.preventDefault();
         setReviewError('');
@@ -418,7 +414,6 @@ function CourseDetailsPage() {
                 comment: newReviewText
             });
 
-            
             const newReview = {
                 ...response.data.review,
                 user_name: user.name 
@@ -429,7 +424,6 @@ function CourseDetailsPage() {
             setNewReviewRating(0);
             setUserHasReviewed(true); 
 
-            
             fetchCourseData(true);
 
         } catch (err) {
@@ -490,7 +484,6 @@ function CourseDetailsPage() {
         );
     }
 
-    
     const canReview = (enrollmentStatus === 'approved' || user?.role === 'admin') && !userHasReviewed;
 
     return (

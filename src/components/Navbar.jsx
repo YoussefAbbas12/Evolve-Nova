@@ -147,7 +147,7 @@ function Navbar({ showBackButton = false, CourcePage = false, showThemeToggle = 
         {renderNavLinks()}
         {showThemeToggle && (
             <button onClick={toggleTheme} className="theme-toggle" title={isDarkMode ? 'الوضع الفاتح' : 'الوضع المظلم'}>
-              {isDarkMode ? '☀️' : '🌙'}
+              <i className={isDarkMode ? 'fas fa-sun' : 'fas fa-moon'}></i>
             </button>
         )}
       </nav>

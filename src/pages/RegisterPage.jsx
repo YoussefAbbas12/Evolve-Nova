@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { registerUser } from '../services/api';
 import Navbar from '../components/Navbar';
-import './AuthPage.css';
-
-
+import './AuthPage.css';
 const validateEmail = (email) => {
   const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return re.test(String(email).toLowerCase());
@@ -14,15 +12,11 @@ function RegisterPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  
-  
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [nameError, setNameError] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  const [confirmPasswordError, setConfirmPasswordError] = useState('');
-
-  
+  const [confirmPasswordError, setConfirmPasswordError] = useState('');
   const [passwordCriteria, setPasswordCriteria] = useState({
     length: false,
     lowercase: false,
@@ -34,9 +28,7 @@ function RegisterPage() {
   const [apiError, setApiError] = useState(''); 
   const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
-
-  
+  const navigate = useNavigate();
   const validatePassword = (pass) => {
     const length = pass.length >= 8;
     const lowercase = /[a-z]/.test(pass);
@@ -47,54 +39,40 @@ function RegisterPage() {
     setPasswordCriteria({ length, lowercase, uppercase, number, specialChar });
     
     return length && lowercase && uppercase && number && specialChar;
-  };
-
-  // --- ✨ useEffect لمراقبة حقل كلمة المرور ✨ ---
+  };
   useEffect(() => {
     if (password) {
       validatePassword(password);
     }
-  }, [password]);
-  
-  // --- ✨ useEffect لمراقبة حقل تأكيد كلمة المرور ✨ ---
+  }, [password]);
   useEffect(() => {
     if (confirmPassword && password !== confirmPassword) {
       setConfirmPasswordError('كلمتا المرور غير متطابقتين.');
     } else {
       setConfirmPasswordError('');
     }
-  }, [password, confirmPassword]);
-
-  // --- ✨ دالة للتحقق من الفورم بالكامل قبل الإرسال ✨ ---
+  }, [password, confirmPassword]);
   const validateForm = () => {
-    let isValid = true;
-    
-    // 1. التحقق من الاسم
+    let isValid = true;
     if (!name || name.trim().length < 3) {
       setNameError('الاسم يجب أن يكون 3 أحرف على الأقل.');
       isValid = false;
     } else {
       setNameError('');
-    }
-
-    // 2. التحقق من الإيميل
+    }
     if (!email || !validateEmail(email)) {
       setEmailError('البريد الإلكتروني غير صالح.');
       isValid = false;
     } else {
       setEmailError('');
-    }
-
-    // 3. التحقق من كلمة المرور
+    }
     const isPasswordValid = validatePassword(password);
     if (!isPasswordValid) {
       setPasswordError('كلمة المرور لا تستوفي جميع المتطلبات.');
       isValid = false;
     } else {
       setPasswordError('');
-    }
-
-    // 4. التحقق من تطابق كلمة المرور
+    }
     if (!confirmPassword || password !== confirmPassword) {
       setConfirmPasswordError('كلمتا المرور غير متطابقتين.');
       isValid = false;
@@ -108,9 +86,7 @@ function RegisterPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setApiError('');
-    setSuccess('');
-
-    // --- ✨ تشغيل التحقق قبل الإرسال ✨ ---
+    setSuccess('');
     if (!validateForm()) {
       return; // إيقاف الإرسال إذا كان الفورم غير صالح
     }
@@ -122,8 +98,7 @@ function RegisterPage() {
       setTimeout(() => {
           navigate('/login');
       }, 2000);
-    } catch (err) {
-      // إظهار الخطأ القادم من السيرفر (مثل: إيميل مستخدم)
+    } catch (err) {
       setApiError(err.response?.data?.error || 'فشل إنشاء الحساب. قد يكون البريد الإلكتروني مستخدماً.');
       setLoading(false);
     }
@@ -137,7 +112,7 @@ function RegisterPage() {
           <h1 className="auth-title">إنشاء حساب جديد</h1>
           <p className="auth-subtitle">انضم إلينا وابدأ رحلتك التعليمية.</p>
           
-          {/* --- ✨ عرض أخطاء السيرفر أو رسالة النجاح ✨ --- */}
+          {}
           {apiError && <p className="auth-error">{apiError}</p>}
           {success && <p className="auth-success">{success}</p>}
           
@@ -146,8 +121,7 @@ function RegisterPage() {
               <input
                 type="text"
                 placeholder="الاسم الكامل"
-                value={name}
-                // ✨ إضافة كلاس .invalid عند وجود خطأ ✨
+                value={name}
                 className={nameError ? 'invalid' : ''}
                 onChange={(e) => {
                   setName(e.target.value);
@@ -156,7 +130,7 @@ function RegisterPage() {
                 required
                 disabled={loading}
               />
-              {/* ✨ إظهار الخطأ الخاص بالحقل ✨ */}
+              {}
               {nameError && <div className="field-error">{nameError}</div>}
             </div>
             
@@ -187,11 +161,11 @@ function RegisterPage() {
                 minLength="8"
                 disabled={loading}
               />
-              {/* ✨ إظهار الخطأ الخاص بالحقل ✨ */}
+              {}
               {passwordError && <div className="field-error">{passwordError}</div>}
             </div>
             
-            {/* --- ✨ قائمة متطلبات كلمة المرور ✨ --- */}
+            {}
             {password && (
               <ul className="auth-requirements">
                 <li className={passwordCriteria.length ? 'valid' : 'invalid'}>
@@ -227,7 +201,7 @@ function RegisterPage() {
                 required
                 disabled={loading}
               />
-              {/* ✨ إظهار الخطأ الخاص بالحقل ✨ */}
+              {}
               {confirmPasswordError && <div className="field-error">{confirmPasswordError}</div>}
             </div>
             
