@@ -1,8 +1,5 @@
 export const heroImages = [
   '/images/logo.jpeg',
-  '/images/m.png',
-  '/images/k.png',
-  '/images/z.png'
 ]
 
 export const heroData = {
