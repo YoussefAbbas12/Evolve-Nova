@@ -1,6 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
 import EvolvePage from './pages/EvolvePage';
-import NovaPage from './pages/NovaPage';
 import CoursesPage from './pages/CoursesPage';
 import CourseDetailsPage from './pages/CourseDetailsPage';
 import CourseWatchPage from './pages/CourseWatchPage';
@@ -19,7 +18,6 @@ function App() {
     <Routes>
       {}
       <Route path="/" element={<EvolvePage />} />
-      <Route path="/nova" element={<NovaPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/courses" element={<CoursesPage />} />
