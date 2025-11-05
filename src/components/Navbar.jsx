@@ -5,8 +5,11 @@ import './Navbar.css';
 
 function Navbar({ showBackButton = false, CourcePage = false, showThemeToggle = true }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [NavLogo, setNavLogo] = useState("/images/NavLogo2.png");
   const location = useLocation();
   const navigate = useNavigate();
+  const savedTheme = localStorage.getItem('theme');
+  
   const { isAuthenticated, user, logout, isLoading } = useAuth();
 
   const [isDarkMode, setIsDarkMode] = useState(() => {
@@ -18,10 +21,13 @@ function Navbar({ showBackButton = false, CourcePage = false, showThemeToggle = 
   });
 
   useEffect(() => {
+    setNavLogo("/images/NavLogo2.png")
     const theme = isDarkMode ? 'dark' : 'light';
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
+    setNavLogo(savedTheme != 'dark' ? "/images/NavLogo.png":"/images/NavLogo2.png");    
   }, [isDarkMode]);
+
 
   const toggleTheme = () => {
     setIsDarkMode(prevMode => !prevMode);
@@ -70,7 +76,6 @@ function Navbar({ showBackButton = false, CourcePage = false, showThemeToggle = 
       <>
         <a href="/#home" className={isActive('#home')} onClick={closeMenu}>الرئيسية</a>
         <a href="/#about" className={isActive('#about')} onClick={closeMenu}>عن Evolve</a>
-        <Link to="/nova" className={isActive('/nova')} onClick={closeMenu}>NOVA</Link>
         <a href="/#events" className={isActive('#events')} onClick={closeMenu}>الفعاليات</a>
         <Link to="/courses" className={isActive('/courses')} onClick={closeMenu}>الكورسات</Link>
         <a href="/#contact" className={isActive('#contact')} onClick={closeMenu}>تواصل معنا</a>
@@ -132,9 +137,10 @@ function Navbar({ showBackButton = false, CourcePage = false, showThemeToggle = 
   };
 
   return (
+
     <header className="navbar">
       <Link to="/" onClick={closeMenu}>
-        <img src="/images/NavLogo.png" alt="logo" className="logo" />
+        <img src={NavLogo} alt="logo" className="logo" />
       </Link>
 
       <button className={`hamburger ${isMenuOpen ? 'active' : ''}`} onClick={toggleMenu}>
