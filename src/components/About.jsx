@@ -1,13 +1,18 @@
 import './About.css'
 
-function About({ image, title, description, mission, vision, Massage , showVideo = true }) {
+function About({ image, title, description, mission, vision, Massage }) {
   return (
     <>
       <div className="section" id="about"></div>
       <section className="about-youth">
         <div className="about-container">
-          <div className="about-image">
-            <img src={image} alt="عن المؤسسة" />
+          <div className="about-video">
+            <div id="video" className="about-video-section">
+              <video controls width="100%">
+                <source src="/video/vid.mp4" type="video/mp4" />
+                متصفحك لا يدعم تشغيل الفيديو.
+              </video>
+            </div>
           </div>
 
           <div className="about-content">
@@ -36,20 +41,7 @@ function About({ image, title, description, mission, vision, Massage , showVideo
             </div>
           </div>
         </div>
-
-        {showVideo && (
-          <>
-            <br />
-            <div id="video" className="about-video-section">
-              <video controls width="100%">
-                <source src="/video/vid.mp4" type="video/mp4" />
-                متصفحك لا يدعم تشغيل الفيديو.
-              </video>
-            </div>
-          </>
-        )}
       </section>
-      <br />
     </>
   )
 }
