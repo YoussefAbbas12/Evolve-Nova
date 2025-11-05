@@ -25,7 +25,7 @@ function Navbar({ showBackButton = false, CourcePage = false, showThemeToggle = 
     const theme = isDarkMode ? 'dark' : 'light';
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
-    setNavLogo(savedTheme != 'dark' ? "/images/NavLogo.png":"/images/NavLogo2.png");    
+    setNavLogo(savedTheme === 'dark' ? "/images/NavLogo.png":"/images/NavLogo2.png");    
   }, [isDarkMode]);
 
 
