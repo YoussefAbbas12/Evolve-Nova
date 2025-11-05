@@ -21,7 +21,7 @@ function Navbar({ showBackButton = false, CourcePage = false, showThemeToggle = 
   });
 
   useEffect(() => {
-    setNavLogo("/images/NavLogo2.png")
+    setNavLogo(NavLogo)
     const theme = isDarkMode ? 'dark' : 'light';
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
