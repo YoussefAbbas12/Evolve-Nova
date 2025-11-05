@@ -24,7 +24,6 @@ function EvolvePage() {
         mission={aboutData.mission}
         vision={aboutData.vision}
         Massage={aboutData.Massage}
-        showVideo={true}
       />
       <Events events={eventsData} />
       <ContactUs />
