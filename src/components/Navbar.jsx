@@ -17,7 +17,7 @@ function Navbar({ showBackButton = false, CourcePage = false, showThemeToggle = 
     if (savedTheme) {
       return savedTheme === 'dark';
     }
-    return true; // default = dark
+    return true;
   });
 
 
@@ -26,8 +26,7 @@ useEffect(() => {
   document.documentElement.setAttribute('data-theme', theme);
   localStorage.setItem('theme', theme);
 
-  // إجبار اللوجو على NavLogo2.png
-  setNavLogo("/images/NavLogo2.png");
+  setNavLogo(isDarkMode ? "/images/NavLogo2.png" : "/images/NavLogo.png");
 }, [isDarkMode]);
 
 
