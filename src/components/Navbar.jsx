@@ -17,8 +17,9 @@ function Navbar({ showBackButton = false, CourcePage = false, showThemeToggle = 
     if (savedTheme) {
       return savedTheme === 'dark';
     }
-    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return true; // default = dark
   });
+
 
   useEffect(() => {
     setNavLogo(NavLogo)
