@@ -21,13 +21,15 @@ function Navbar({ showBackButton = false, CourcePage = false, showThemeToggle = 
   });
 
 
-  useEffect(() => {
-    setNavLogo(NavLogo)
-    const theme = isDarkMode ? 'dark' : 'light';
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
-    setNavLogo(savedTheme === 'dark' ? "/images/NavLogo.png":"/images/NavLogo2.png");    
-  }, [isDarkMode]);
+useEffect(() => {
+  const theme = isDarkMode ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('theme', theme);
+
+  // إجبار اللوجو على NavLogo2.png
+  setNavLogo("/images/NavLogo2.png");
+}, [isDarkMode]);
+
 
 
   const toggleTheme = () => {
